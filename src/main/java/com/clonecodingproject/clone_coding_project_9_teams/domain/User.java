@@ -1,7 +1,10 @@
 package com.clonecodingproject.clone_coding_project_9_teams.domain;
 
 import com.clonecodingproject.clone_coding_project_9_teams.domain.resultType.Timestamped;
-import lombok.*;
+import com.clonecodingproject.clone_coding_project_9_teams.dto.SignupDto;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -27,4 +30,10 @@ public class User extends Timestamped {
     @Column(nullable = false)
     private String region;
 
+    public User(SignupDto signupDto, String password){
+        this.username = signupDto.getUsername();
+        this.nickname = signupDto.getNickname();
+        this.password = password;
+        this.region = signupDto.getRegion();
+    }
 }
