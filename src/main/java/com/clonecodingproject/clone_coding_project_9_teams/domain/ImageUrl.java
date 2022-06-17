@@ -1,6 +1,5 @@
 package com.clonecodingproject.clone_coding_project_9_teams.domain;
 
-import com.clonecodingproject.clone_coding_project_9_teams.domain.resultType.Timestamped;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,14 +8,14 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-public class ImageUrl extends Timestamped {
+public class ImageUrl {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "postId")
     private Post post;
 
     @Column(nullable = false)

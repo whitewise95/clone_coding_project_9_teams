@@ -2,6 +2,7 @@ package com.clonecodingproject.clone_coding_project_9_teams.domain;
 
 import com.clonecodingproject.clone_coding_project_9_teams.domain.resultType.Timestamped;
 import lombok.*;
+import org.hibernate.mapping.ToOne;
 
 import javax.persistence.*;
 
@@ -14,11 +15,11 @@ import java.util.List;
 public class Post extends Timestamped {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "userId")
     private User user;
 
     @Column(nullable = false)
@@ -31,9 +32,9 @@ public class Post extends Timestamped {
     private String content;
 
     @Column(nullable = false)
-    private String price;
+    private int price;
 
     @OneToMany
-    @JoinColumn(name = "imageUrl_id")
-    private List<ImageUrl> imageUrls;
+    @JoinColumn(name = "imageUrlId")
+    private List<ImageUrl> imageUrl;
 }
