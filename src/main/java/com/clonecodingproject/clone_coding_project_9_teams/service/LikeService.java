@@ -20,26 +20,42 @@ public class LikeService {
     private final LikeRepository likeRepository;
 
     @Transactional
-    public void uplike(로그인유저토큰 로그인유저,
-                       Long postId){
+    public void uplike(로그인유저토큰 로그인유저, Long postId){
+
         User user = userRepository.findById(로그인유저.getId()).orElseThrow(
-                ()->new NullPointerException("로그인이 필요합니다.")
+                ()->new NullPointerException("해당 ID가 존재하지 않습니다.")
        );
         Post post = postRepository.findById(postId).orElseThrow(
                 ()->new NullPointerException("해당 게시글이 존재하지 않습니다.")
         );
 
-        Likes likes = new Likes(user, post);
-        if (likeRepository.getLikesByUserAndPost(user, post).getHeart()==null){
+        String heart = likeRepository.getLikesByUserAndPost(user, post).getHeart();
+
+        Likes likes = new Likes(user, post, heart);
+
+        if (heart==null){
             likes.setHeart("like");
             likeRepository.save(likes);
-        } else if (likeRepository.getLikesByUserAndPost(user, post).getHeart()!=null) {
+        } else {
             likeRepository.delete(likes);
         }
-
-        Long count = (long) likeRepository.findAllByPost(post).size();
-        post.setLikesCount(count);
+        int count = likeRepository.findAllByPost(post).size();
+        post.setLikeCount(count);
+        postRepository.save(post);
 
     }
 
+    public boolean checkLike(유저토큰 토큰, Long postId){
+        User user = userRepository.findById(로그인유저.getId()).orElseThrow(
+                ()->new NullPointerException("해당 ID가 존재하지 않습니다.")
+        );
+        Post post = postRepository.findById(postId).orElseThrow(
+                ()->new NullPointerException("해당 게시글이 존재하지 않습니다.")
+        );
+        if (likeRepository.findByUserAndPost(user, post)==null){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }
