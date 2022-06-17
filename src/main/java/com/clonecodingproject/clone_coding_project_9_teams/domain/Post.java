@@ -29,6 +29,9 @@ public class Post extends Timestamped {
     private String category;
 
     @Column(nullable = false)
+    private int likeCount;
+
+    @Column(nullable = false)
     private String content;
 
     @Column(nullable = false)
