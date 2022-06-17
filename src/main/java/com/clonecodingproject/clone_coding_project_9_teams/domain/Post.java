@@ -1,8 +1,8 @@
 package com.clonecodingproject.clone_coding_project_9_teams.domain;
 
 import com.clonecodingproject.clone_coding_project_9_teams.domain.resultType.Timestamped;
+import com.clonecodingproject.clone_coding_project_9_teams.dto.PostRequestDto;
 import lombok.*;
-import org.hibernate.mapping.ToOne;
 
 import javax.persistence.*;
 
@@ -40,4 +40,14 @@ public class Post extends Timestamped {
     @OneToMany
     @JoinColumn(name = "imageUrlId")
     private List<ImageUrl> imageUrl;
+
+    public Post(PostRequestDto postRequestDto, List<ImageUrl> imageUrls, User user) {
+        this.user = user;
+        this.title = postRequestDto.getTitle();
+        this.category = postRequestDto.getCategory();
+        this.likeCount = 0;
+        this.content = postRequestDto.getContent();
+        this.price = postRequestDto.getPrice();
+        this.imageUrl = imageUrls;
+    }
 }
