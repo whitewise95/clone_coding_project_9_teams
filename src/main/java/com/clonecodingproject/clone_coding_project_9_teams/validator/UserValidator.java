@@ -2,7 +2,6 @@ package com.clonecodingproject.clone_coding_project_9_teams.validator;
 
 import com.clonecodingproject.clone_coding_project_9_teams.dto.SignupDto;
 import com.clonecodingproject.clone_coding_project_9_teams.repository.UserRepository;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +12,7 @@ public class UserValidator {
 
     private final UserRepository userRepository;
 
-    //입력 받은 값 체크
+    //입력 받은 값 체크 함수
     public void checkValues(SignupDto signupDto) {
 
         String username = signupDto.getUsername();
@@ -31,24 +30,23 @@ public class UserValidator {
         }
     }
 
-    //유저 중복 체크
+    //이메일 중복 체크 함수
     public Boolean checkDupeEmail(SignupDto signupDto){
         return userRepository.existsByUsername(signupDto.getUsername());
     }
 
+    //닉네임 중복 체크 함수
     public Boolean checkDupeNickname(SignupDto signupDto){
         return userRepository.existsByNickname(signupDto.getNickname());
     }
 
-
+/*-------------------------------------<입력값 형식 체크 함수>----------------------------------------*/
 
     //이메일 형식 체크 함수
-    // \\w
     private boolean checkEmail(String username){
         String pattern = "\\w+@\\w+\\.\\w+(\\.\\W+)?";
         return Pattern.matches(pattern, username);
     }
-
     //패스워드 형식 체크
     private boolean checkPassword(String password){
         String pattern = "^(?=.*\\d)(?=.*[a-zA-Z])(?=.*[@$!%*#?&])[0-9a-zA-Z@$!%*#?&]{3,10}$";
