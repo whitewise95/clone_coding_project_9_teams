@@ -32,6 +32,9 @@ public class Post extends Timestamped {
     private int likeCount;
 
     @Column(nullable = false)
+    private String region;
+
+    @Column(nullable = false)
     private String content;
 
     @Column(nullable = false)
@@ -45,6 +48,7 @@ public class Post extends Timestamped {
         this.user = user;
         this.title = postRequestDto.getTitle();
         this.category = postRequestDto.getCategory();
+        this.region = user.getRegion();
         this.likeCount = 0;
         this.content = postRequestDto.getContent();
         this.price = postRequestDto.getPrice();

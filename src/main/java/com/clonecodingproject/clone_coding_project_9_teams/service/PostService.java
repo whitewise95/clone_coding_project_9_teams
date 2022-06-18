@@ -35,7 +35,7 @@ public class PostService {
                         new Post(
                                 postRequestDto,
                                 imageUrls,
-                                userRepository.save(new User("test","test","test","test")) // 나중엔 토큰으로 변경
+                                userRepository.save(new User("test")) // 나중엔 토큰으로 변경
                         )
                 )
         );

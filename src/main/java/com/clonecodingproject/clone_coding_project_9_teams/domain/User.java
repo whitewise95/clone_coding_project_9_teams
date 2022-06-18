@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -34,10 +35,10 @@ public class User extends Timestamped {
         this.region = signupDto.getRegion();
     }
 
-    public User(String test, String test1, String test2, String test3) {
+    public User(String test) {
         this.username = test;
-        this.password = test1;
-        this.nickname = test2;
-        this.region = test3;
+        this.password = test;
+        this.nickname = test;
+        this.region = test;
     }
 }
