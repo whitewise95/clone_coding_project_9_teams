@@ -7,6 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 public class ImageRequestDto {
 
+    private Long id;
     private Long postId;
     private String imageUrl;
 }
