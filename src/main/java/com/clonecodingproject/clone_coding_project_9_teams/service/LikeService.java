@@ -19,18 +19,15 @@ public class LikeService {
     private final LikeRepository likeRepository;
 
     @Transactional
-    public void uplike(Long postId){
-        Long userId = 1L; //테스트용
-        User user = userRepository.findById(userId).orElseThrow(
-                ()->new NullPointerException("해당 ID가 존재하지 않습니다.")
-       );
+    public void uplike(Long postId, String email){
+        System.out.println(email);
+        User user = userRepository.findByUsername(email);
         Post post = postRepository.findById(postId).orElseThrow(
                 ()->new NullPointerException("해당 게시글이 존재하지 않습니다.")
         );
 
         if (likeRepository.findByUserAndPost(user, post)==null){
-            Likes likes = new Likes(user, post, null);
-            likes.setHeart("like");
+            Likes likes = new Likes(user, post);
             likeRepository.save(likes);
         } else {
             Likes likes = likeRepository.getLikesByUserAndPost(user, post);
@@ -42,11 +39,9 @@ public class LikeService {
         postRepository.save(post);
 
     }
-
-    public boolean checkLike( Long postId){
-        User user = userRepository.findById(new User("test").getId()).orElseThrow(
-                ()->new NullPointerException("해당 ID가 존재하지 않습니다.")
-        );
+    @Transactional
+    public boolean checkLike(Long postId, String email){
+        User user = userRepository.findByUsername(email);
         Post post = postRepository.findById(postId).orElseThrow(
                 ()->new NullPointerException("해당 게시글이 존재하지 않습니다.")
         );

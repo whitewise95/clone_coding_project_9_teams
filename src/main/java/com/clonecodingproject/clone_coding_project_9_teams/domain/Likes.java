@@ -24,13 +24,10 @@ public class Likes {
     @JoinColumn(name = "userId")
     private User user;
 
-    @Column
-    private String heart;
 
-    public Likes(User user, Post post, String heart){
+    public Likes(User user, Post post){
         this.user = user;
         this.post = post;
-        this.heart = heart;
     }
 
 
