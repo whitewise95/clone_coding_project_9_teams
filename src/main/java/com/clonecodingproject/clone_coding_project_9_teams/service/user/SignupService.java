@@ -1,4 +1,4 @@
-package com.clonecodingproject.clone_coding_project_9_teams.service;
+package com.clonecodingproject.clone_coding_project_9_teams.service.user;
 
 import com.clonecodingproject.clone_coding_project_9_teams.domain.User;
 import com.clonecodingproject.clone_coding_project_9_teams.dto.SignupDto;
@@ -13,7 +13,7 @@ import java.security.NoSuchAlgorithmException;
 
 @RequiredArgsConstructor
 @Service
-public class UserService {
+public class SignupService {
 
     private final UserRepository userRepository;
     private final UserValidator userValidator;
