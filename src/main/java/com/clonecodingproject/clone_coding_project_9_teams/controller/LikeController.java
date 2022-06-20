@@ -1,7 +1,6 @@
 package com.clonecodingproject.clone_coding_project_9_teams.controller;
 
 
-import com.clonecodingproject.clone_coding_project_9_teams.domain.Users;
 import com.clonecodingproject.clone_coding_project_9_teams.repository.UserRepository;
 import com.clonecodingproject.clone_coding_project_9_teams.service.LikeService;
 import lombok.RequiredArgsConstructor;

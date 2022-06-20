@@ -35,15 +35,16 @@ public class PostController {
     }
 
     // 비로그인유저 전체 매물 조회
-    @GetMapping("/post/all-region")
-    public Slice<Post> getPosts(HttpServletRequest httpServletRequest) {
+    @GetMapping("/post/all/region")
+    public Slice<Post> getPosts(HttpServletRequest httpServletRequest){
         Long page = Long.parseLong(httpServletRequest.getParameter("page"));
         return postService.getAllPost(page);
     }
 
     // 비로그인유저 인기 매물 조회
-    @GetMapping("/post/top/all-region")
-    public Slice<Post> getTopPost(HttpServletRequest httpServletRequest) {
+
+    @GetMapping("/post/top/all/region")
+    public Slice<Post> getTopPost(HttpServletRequest httpServletRequest){
         Long page = Long.parseLong(httpServletRequest.getParameter("page"));
         return postService.getTopPost(page);
     }

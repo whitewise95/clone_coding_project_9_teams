@@ -39,7 +39,7 @@ public class PostService {
                         new Post(
                                 postRequestDto,
                                 imageUrls,
-                                userRepository.save(new Users("test")) // 나중엔 토큰으로 변경
+                                userRepository.save(new User("test")) // 나중엔 토큰으로 변경
                         )
                 )
         );
@@ -74,6 +74,7 @@ public class PostService {
         String newId = "["+id+"]";
 
         String currentView = (String) httpSession.getAttribute("viewList");
+//        System.out.println(currentView);
 
 
         if (currentView == null ){
@@ -91,6 +92,7 @@ public class PostService {
             post.setViewCount(count);
             postRepository.save(post);
         }
+        System.out.println(currentView);
     }
     @Transactional
     public Slice<Post> getTopPost(Long page){

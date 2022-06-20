@@ -22,12 +22,12 @@ public class Likes {
 
     @ManyToOne
     @JoinColumn(name = "userId")
-    private Users user;
+    private User user;
 
     @Column
     private String heart;
 
-    public Likes(Users user, Post post, String heart){
+    public Likes(User user, Post post, String heart){
         this.user = user;
         this.post = post;
         this.heart = heart;
