@@ -20,7 +20,7 @@ public class Post extends Timestamped {
 
     @ManyToOne
     @JoinColumn(name = "userId")
-    private User user;
+    private Users users;
 
     @Column(nullable = false)
     private String title;
@@ -40,16 +40,19 @@ public class Post extends Timestamped {
     @Column(nullable = false)
     private int price;
 
+    @Column(nullable = false)
+    private int viewCount;
     @OneToMany
     @JoinColumn(name = "imageUrlId")
     private List<ImageUrl> imageUrl;
 
-    public Post(PostRequestDto postRequestDto, List<ImageUrl> imageUrls, User user) {
-        this.user = user;
+    public Post(PostRequestDto postRequestDto, List<ImageUrl> imageUrls, Users users) {
+        this.users = users;
         this.title = postRequestDto.getTitle();
         this.category = postRequestDto.getCategory();
-        this.region = user.getRegion();
+        this.region = users.getRegion();
         this.likeCount = 0;
+        this.viewCount = 0;
         this.content = postRequestDto.getContent();
         this.price = postRequestDto.getPrice();
         this.imageUrl = imageUrls;

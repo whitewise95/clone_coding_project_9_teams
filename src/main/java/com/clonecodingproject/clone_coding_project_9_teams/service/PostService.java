@@ -4,9 +4,13 @@ import com.clonecodingproject.clone_coding_project_9_teams.domain.*;
 import com.clonecodingproject.clone_coding_project_9_teams.dto.PostRequestDto;
 import com.clonecodingproject.clone_coding_project_9_teams.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -35,7 +39,7 @@ public class PostService {
                         new Post(
                                 postRequestDto,
                                 imageUrls,
-                                userRepository.save(new User("test")) // 나중엔 토큰으로 변경
+                                userRepository.save(new Users("test")) // 나중엔 토큰으로 변경
                         )
                 )
         );
@@ -60,4 +64,57 @@ public class PostService {
                 post
         );
     }
+
+    @Transactional
+    public void upView(Long postId, HttpSession httpSession){
+        Post post = postRepository.findById(postId).orElseThrow(
+                ()->new NullPointerException("해당 게시글이 존재하지 않습니다.")
+        );
+        String id = Long.toString(postId);
+        String newId = "["+id+"]";
+
+        String currentView = (String) httpSession.getAttribute("viewList");
+
+
+        if (currentView == null ){
+            
+            httpSession.setAttribute("viewList", newId);
+            int count = postRepository.findById(postId).get().getViewCount()+1;
+            post.setViewCount(count);
+            postRepository.save(post);
+        } else if (!currentView.contains( "["+id+"]")){
+
+            String newList =newId+currentView;
+
+            httpSession.setAttribute("viewList", newList);
+            int count = postRepository.findById(postId).get().getViewCount()+1;
+            post.setViewCount(count);
+            postRepository.save(post);
+        }
+    }
+    @Transactional
+    public Slice<Post> getTopPost(Long page){
+        PageRequest pageRequest = PageRequest.of(Math.toIntExact(page), 5, Sort.by(Sort.Direction.DESC,"viewCount"));
+        return postRepository.findAllByOrderByLikeCountDesc(pageRequest);
+    }
+
+    @Transactional
+    public Slice<Post> getAllPost(Long page){
+
+        PageRequest pageRequest = PageRequest.of(Math.toIntExact(page), 5, Sort.by(Sort.Direction.DESC,"createdAt"));
+        return postRepository.findAll(pageRequest);
+    }
+
+    @Transactional
+    public Slice<Post> getRegionPost(Long page, String region){
+        PageRequest pageRequest = PageRequest.of(Math.toIntExact(page), 5, Sort.by(Sort.Direction.DESC,"createdAt"));
+        return postRepository.findAllByRegion(pageRequest, region);
+    }
+
+    @Transactional
+    public Slice<Post> getTopRegionPost(Long page, String region){
+        PageRequest pageRequest = PageRequest.of(Math.toIntExact(page), 5, Sort.by(Sort.Direction.DESC,"viewCount"));
+        return postRepository.findAllByRegionOrderByLikeCountDesc(pageRequest, region);
+    }
+
 }

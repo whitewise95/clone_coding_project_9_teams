@@ -7,5 +7,4 @@ import lombok.Setter;
 @Setter
 public class LikeDto {
     private String heart;
-
 }

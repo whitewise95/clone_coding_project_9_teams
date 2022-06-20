@@ -2,8 +2,7 @@ package com.clonecodingproject.clone_coding_project_9_teams.service;
 
 import com.clonecodingproject.clone_coding_project_9_teams.domain.Likes;
 import com.clonecodingproject.clone_coding_project_9_teams.domain.Post;
-import com.clonecodingproject.clone_coding_project_9_teams.domain.User;
-import com.clonecodingproject.clone_coding_project_9_teams.dto.LikeDto;
+import com.clonecodingproject.clone_coding_project_9_teams.domain.Users;
 import com.clonecodingproject.clone_coding_project_9_teams.repository.LikeRepository;
 import com.clonecodingproject.clone_coding_project_9_teams.repository.PostRepository;
 import com.clonecodingproject.clone_coding_project_9_teams.repository.UserRepository;
@@ -20,39 +19,38 @@ public class LikeService {
     private final LikeRepository likeRepository;
 
     @Transactional
-    public void uplike(로그인유저토큰 로그인유저, Long postId){
-
-        User user = userRepository.findById(로그인유저.getId()).orElseThrow(
+    public void uplike(Long postId){
+        Long userId = 1L; //테스트용
+        Users users = userRepository.findById(userId).orElseThrow(
                 ()->new NullPointerException("해당 ID가 존재하지 않습니다.")
        );
         Post post = postRepository.findById(postId).orElseThrow(
                 ()->new NullPointerException("해당 게시글이 존재하지 않습니다.")
         );
 
-        String heart = likeRepository.getLikesByUserAndPost(user, post).getHeart();
-
-        Likes likes = new Likes(user, post, heart);
-
-        if (heart==null){
+        if (likeRepository.findByUserAndPost(users, post)==null){
+            Likes likes = new Likes(users, post, null);
             likes.setHeart("like");
             likeRepository.save(likes);
         } else {
+            Likes likes = likeRepository.getLikesByUserAndPost(users, post);
             likeRepository.delete(likes);
         }
+
         int count = likeRepository.findAllByPost(post).size();
         post.setLikeCount(count);
         postRepository.save(post);
 
     }
 
-    public boolean checkLike(유저토큰 토큰, Long postId){
-        User user = userRepository.findById(로그인유저.getId()).orElseThrow(
+    public boolean checkLike( Long postId){
+        Users users = userRepository.findById(new Users("test").getId()).orElseThrow(
                 ()->new NullPointerException("해당 ID가 존재하지 않습니다.")
         );
         Post post = postRepository.findById(postId).orElseThrow(
                 ()->new NullPointerException("해당 게시글이 존재하지 않습니다.")
         );
-        if (likeRepository.findByUserAndPost(user, post)==null){
+        if (likeRepository.findByUserAndPost(users, post)==null){
             return true;
         }else {
             return false;

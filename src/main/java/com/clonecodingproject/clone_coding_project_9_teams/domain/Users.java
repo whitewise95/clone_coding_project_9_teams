@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-public class User extends Timestamped {
+public class Users extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,14 +28,14 @@ public class User extends Timestamped {
     @Column(nullable = false)
     private String region;
 
-    public User(SignupDto signupDto, String password) {
+    public Users(SignupDto signupDto, String password) {
         this.username = signupDto.getUsername();
         this.nickname = signupDto.getNickname();
         this.password = password;
         this.region = signupDto.getRegion();
     }
 
-    public User(String test) {
+    public Users(String test) {
         this.username = test;
         this.password = test;
         this.nickname = test;

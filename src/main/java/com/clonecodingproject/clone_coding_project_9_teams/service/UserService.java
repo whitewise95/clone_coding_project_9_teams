@@ -1,6 +1,6 @@
 package com.clonecodingproject.clone_coding_project_9_teams.service;
 
-import com.clonecodingproject.clone_coding_project_9_teams.domain.User;
+import com.clonecodingproject.clone_coding_project_9_teams.domain.Users;
 import com.clonecodingproject.clone_coding_project_9_teams.dto.SignupDto;
 import com.clonecodingproject.clone_coding_project_9_teams.dto.SignupResDto;
 import com.clonecodingproject.clone_coding_project_9_teams.encoder.SHA256;
@@ -33,8 +33,8 @@ public class UserService {
         //위의 모든 예외처리를 통과하면 모든 비밀번호 암호화 후 유저 등록
         }else{
             String encodedPw = SHA256.encrypt(signupDto.getPassword());
-            User user = new User(signupDto, encodedPw);
-            userRepository.save(user);
+            Users users = new Users(signupDto, encodedPw);
+            userRepository.save(users);
             signupResDto.setMessage("회원가입을 성공했습니다!");
         }
         return signupResDto;
