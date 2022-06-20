@@ -1,4 +1,4 @@
-package com.clonecodingproject.clone_coding_project_9_teams.encoder;
+package com.clonecodingproject.clone_coding_project_9_teams.jwt.encoder;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

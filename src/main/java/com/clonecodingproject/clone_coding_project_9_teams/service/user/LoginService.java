@@ -3,7 +3,7 @@ package com.clonecodingproject.clone_coding_project_9_teams.service.user;
 import com.clonecodingproject.clone_coding_project_9_teams.domain.User;
 import com.clonecodingproject.clone_coding_project_9_teams.dto.LoginDto;
 import com.clonecodingproject.clone_coding_project_9_teams.dto.LoginResDto;
-import com.clonecodingproject.clone_coding_project_9_teams.encoder.SHA256;
+import com.clonecodingproject.clone_coding_project_9_teams.jwt.encoder.SHA256;
 import com.clonecodingproject.clone_coding_project_9_teams.jwt.JwtTokenProvider;
 import com.clonecodingproject.clone_coding_project_9_teams.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
