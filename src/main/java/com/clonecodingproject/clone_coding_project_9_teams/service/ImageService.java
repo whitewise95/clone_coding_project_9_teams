@@ -5,7 +5,8 @@ import com.clonecodingproject.clone_coding_project_9_teams.dto.ImageRequestDto;
 import com.clonecodingproject.clone_coding_project_9_teams.repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.*;
 
 import java.io.File;
 import java.util.*;
@@ -26,6 +27,12 @@ public class ImageService {
         }
 
         return imageRepository.saveAll(imageUrls);
+    }
+
+    @Transactional
+    public String imagesUpload(MultipartHttpServletRequest request) {
+        List<MultipartFile> files = request.getFiles("file");
+        return null;
     }
 
     public void imageUpdateToPost(List<ImageUrl> imageUrls, Post post) {
@@ -56,8 +63,8 @@ public class ImageService {
             } //폴더가 존재하지 않으면 경로 생성
 
 //            attcFile.transferTo(new File(folder + "\\" + storedFileName));
-            attcFile.transferTo(new File(folder + "/" + storedFileName));
 //            rtnVal += "images\\" + storedFileName;
+            attcFile.transferTo(new File(folder + "/" + storedFileName));
             rtnVal +=  "http://whitewise.shop/upload/" + storedFileName;
         } catch (Exception e) {
             rtnVal = "";
