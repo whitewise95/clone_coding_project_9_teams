@@ -9,8 +9,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -18,7 +17,7 @@ public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("/post/{postId}")
+    @GetMapping("/post/detail/{postId}")
     public Post postDetail(@PathVariable Long postId, HttpSession httpSession) {
         postService.upView(postId, httpSession);
         return postService.postDetail(postId);
@@ -34,31 +33,31 @@ public class PostController {
                            @Validated(Update.class) @RequestBody PostRequestDto postRequestDto) {
         postService.postUpdate(postId, postRequestDto);
     }
+
     // 비로그인유저 전체 매물 조회
     @GetMapping("/post/all-region")
-    public Slice<Post> getPosts(HttpServletRequest httpServletRequest){
+    public Slice<Post> getPosts(HttpServletRequest httpServletRequest) {
         Long page = Long.parseLong(httpServletRequest.getParameter("page"));
         return postService.getAllPost(page);
     }
 
-
     // 비로그인유저 인기 매물 조회
     @GetMapping("/post/top/all-region")
-    public Slice<Post> getTopPost(HttpServletRequest httpServletRequest){
+    public Slice<Post> getTopPost(HttpServletRequest httpServletRequest) {
         Long page = Long.parseLong(httpServletRequest.getParameter("page"));
         return postService.getTopPost(page);
     }
 
     // 로그인유저 지역 매물 조회
     @GetMapping("/post/{region}")
-    public Slice<Post> getRegionPost(HttpServletRequest httpServletRequest, @PathVariable String region){
+    public Slice<Post> getRegionPost(HttpServletRequest httpServletRequest, @PathVariable String region) {
         Long page = Long.parseLong(httpServletRequest.getParameter("page"));
         return postService.getRegionPost(page, region);
     }
 
     // 로그인유저 인기 지역 매물 조회
     @GetMapping("/post/top/{region}")
-    public Slice<Post> getTopRegionPost(HttpServletRequest httpServletRequest, @PathVariable String region){
+    public Slice<Post> getTopRegionPost(HttpServletRequest httpServletRequest, @PathVariable String region) {
         Long page = Long.parseLong(httpServletRequest.getParameter("page"));
         return postService.getTopRegionPost(page, region);
     }
