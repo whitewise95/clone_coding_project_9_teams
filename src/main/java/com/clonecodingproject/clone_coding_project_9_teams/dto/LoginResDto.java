@@ -10,5 +10,4 @@ public class LoginResDto {
     private String region;
     private String accessToken;
     private String errorMessage;
-
 }

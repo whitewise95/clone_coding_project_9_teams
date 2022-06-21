@@ -8,7 +8,6 @@ import com.clonecodingproject.clone_coding_project_9_teams.repository.UserReposi
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -18,16 +17,14 @@ public class LoginService {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
 
-    public LoginResDto login(LoginDto loginDto) throws NoSuchAlgorithmException {
+    public LoginResDto login(LoginDto loginDto) throws Exception {
 
         //로그인 정보에 맞는 유저 찾기
         Optional<User> user = userRepository.findByUsernameAndPassword(loginDto.getUsername(), SHA256.encrypt(loginDto.getPassword()));
 
         //아이디 비번 틀렸을 시
         if (!user.isPresent()) {
-            return LoginResDto.builder()
-                    .errorMessage("아이디 또는 비밀번호가 틀렸습니다.")
-                    .build();
+            throw new IllegalArgumentException("아이디 또는 비밀번호가 틀렸습니다.");
         }
 
         String accessToken = jwtTokenProvider.createAccessToken(user.get().getUsername());
