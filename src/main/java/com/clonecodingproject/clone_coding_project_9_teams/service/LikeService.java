@@ -21,7 +21,8 @@ public class LikeService {
     @Transactional
     public void uplike(Long postId, String email){
         System.out.println(email);
-        User user = userRepository.findByUsername(email);
+        User user = userRepository.findByUsername(email)
+                        .orElseThrow(() -> new IllegalArgumentException("찾는 회원이 없습니다."));
         Post post = postRepository.findById(postId).orElseThrow(
                 ()->new NullPointerException("해당 게시글이 존재하지 않습니다.")
         );
@@ -41,7 +42,8 @@ public class LikeService {
     }
     @Transactional
     public boolean checkLike(Long postId, String email){
-        User user = userRepository.findByUsername(email);
+        User user = userRepository.findByUsername(email)
+                .orElseThrow(() -> new IllegalArgumentException("찾는 회원이 없습니다."));
         Post post = postRepository.findById(postId).orElseThrow(
                 ()->new NullPointerException("해당 게시글이 존재하지 않습니다.")
         );

@@ -34,6 +34,11 @@ public class PostController {
         postService.postUpdate(postId, postRequestDto);
     }
 
+    @DeleteMapping("/post/{postId}")
+    public void postDelete(@PathVariable Long postId){
+        postService.postDelete(postId);
+    }
+
     // 비로그인유저 전체 매물 조회
     @GetMapping("/post/all/region")
     public Slice<Post> getPosts(HttpServletRequest httpServletRequest){
