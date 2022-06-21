@@ -4,11 +4,14 @@ import com.clonecodingproject.clone_coding_project_9_teams.domain.Likes;
 import com.clonecodingproject.clone_coding_project_9_teams.domain.Post;
 import com.clonecodingproject.clone_coding_project_9_teams.domain.User;
 import com.clonecodingproject.clone_coding_project_9_teams.repository.LikeRepository;
+import com.clonecodingproject.clone_coding_project_9_teams.repository.LikesMapping;
 import com.clonecodingproject.clone_coding_project_9_teams.repository.PostRepository;
 import com.clonecodingproject.clone_coding_project_9_teams.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -52,5 +55,11 @@ public class LikeService {
         }else {
             return false;
         }
+    }
+
+    @Transactional
+    public List<LikesMapping> getLikes(String email){
+        User user = userRepository.findByUsername(email);
+        return likeRepository.findByUser(user);
     }
 }
