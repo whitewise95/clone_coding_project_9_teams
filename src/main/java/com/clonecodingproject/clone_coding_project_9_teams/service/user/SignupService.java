@@ -9,26 +9,24 @@ import com.clonecodingproject.clone_coding_project_9_teams.validator.UserValidat
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.security.NoSuchAlgorithmException;
-
 @RequiredArgsConstructor
 @Service
 public class SignupService {
 
     private final UserRepository userRepository;
     private final UserValidator userValidator;
-    public SignupResDto signUp(SignupDto signupDto) throws NoSuchAlgorithmException {
+    public SignupResDto signUp(SignupDto signupDto) throws Exception {
         SignupResDto signupResDto = new SignupResDto();
         //입력 받은 값 체크
         userValidator.checkValues(signupDto);
 
         //등록된 유저 중 이메일 중복 체크
         if(userValidator.checkDupeEmail(signupDto)){
-           signupResDto.setMessage("이메일이 중복 되었습니다.");
+            throw new IllegalArgumentException("이메일이 중복되었습니다.");
 
         //등록된 유저 중 닉네임 중복 체크
         }else if (userValidator.checkDupeNickname(signupDto)) {
-            signupResDto.setMessage("닉네임이 중복 되었습니다.");
+            throw new IllegalArgumentException("닉네임이 중복 되었습니다.");
 
         //위의 모든 예외처리를 통과하면 모든 비밀번호 암호화 후 유저 등록
         }else{
