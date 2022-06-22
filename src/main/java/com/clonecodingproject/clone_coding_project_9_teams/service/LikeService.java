@@ -63,4 +63,8 @@ public class LikeService {
                 .orElseThrow(() -> new IllegalArgumentException("찾는 회원이 없습니다."));
         return likeRepository.findByUser(user);
     }
+
+    public void deleteAllByPostId(Long postId) {
+        likeRepository.deleteAllByPostId(postId);
+    }
 }

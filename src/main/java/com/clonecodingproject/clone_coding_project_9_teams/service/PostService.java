@@ -25,6 +25,7 @@ public class PostService {
     private final HttpServletRequest httpRequest;
     private final UserInfoInJwt userInfoInJwt;
     private final LoginService loginService;
+    private final LikeService likeService;
 
     @Transactional(readOnly = true)
     public Post postDetail(Long postId) {
@@ -76,6 +77,7 @@ public class PostService {
         if (!isUserMatchingCheck(postDetail(postId).getUser().getUsername())) {  // 글쓴이가 맞는지 체크
             throw new IllegalArgumentException("글쓴이가 아닙니다.");
         }
+        likeService.deleteAllByPostId(postId);
         postRepository.deleteById(postId);
     }
 
