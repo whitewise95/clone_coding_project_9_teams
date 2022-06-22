@@ -3,6 +3,7 @@ package com.clonecodingproject.clone_coding_project_9_teams.error;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+//필요한 에러코드를 작성할 수 있다. 응답의 상태코드와 에러메시지 커스텀 가능
 @AllArgsConstructor
 @Getter
 public enum ErrorCode {
