@@ -2,6 +2,7 @@ package com.clonecodingproject.clone_coding_project_9_teams.domain;
 
 import com.clonecodingproject.clone_coding_project_9_teams.domain.resultType.Timestamped;
 import com.clonecodingproject.clone_coding_project_9_teams.dto.SignupDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class User extends Timestamped {
     @Column(nullable = false)
     private String username;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
