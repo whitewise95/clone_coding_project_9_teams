@@ -59,7 +59,8 @@ public class LikeService {
 
     @Transactional
     public List<LikesMapping> getLikes(String email){
-        User user = userRepository.findByUsername(email);
+        User user = userRepository.findByUsername(email)
+                .orElseThrow(() -> new IllegalArgumentException("찾는 회원이 없습니다."));
         return likeRepository.findByUser(user);
     }
 }
