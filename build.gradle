@@ -33,6 +33,12 @@ dependencies {
 
     //jwt
     implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+
+    //Validation
+    implementation 'javax.validation:validation-api:2.0.1.Final'
+
+    // Thymeleaf (뷰 템플릿 엔진)
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 }
 
 tasks.named('test') {
