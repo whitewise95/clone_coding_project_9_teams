@@ -24,12 +24,8 @@ public class Likes {
     @JoinColumn(name = "userId")
     private User user;
 
-
     public Likes(User user, Post post){
         this.user = user;
         this.post = post;
     }
-
-
-
 }

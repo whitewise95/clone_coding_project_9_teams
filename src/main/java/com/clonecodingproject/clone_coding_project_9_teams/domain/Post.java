@@ -61,8 +61,7 @@ public class Post extends Timestamped {
 
     public void update(PostRequestDto postRequestDto, List<ImageUrl> imageUrls) {
         this.title = postRequestDto.getTitle();
-        this.category = postRequestDto.getTitle();
-        this.likeCount = postRequestDto.getPrice();
+        this.category = postRequestDto.getCategory();
         this.content = postRequestDto.getContent();
         this.price = postRequestDto.getPrice();
         this.imageUrl = imageUrls;
