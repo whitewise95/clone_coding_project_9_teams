@@ -42,6 +42,7 @@ public class Post extends Timestamped {
 
     @Column(nullable = false)
     private int viewCount;
+
     @OneToMany
     @JoinColumn(name = "imageUrlId")
     private List<ImageUrl> imageUrl;

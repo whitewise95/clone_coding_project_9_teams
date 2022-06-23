@@ -77,8 +77,10 @@ public class PostService {
         if (!isUserMatchingCheck(postDetail(postId).getUser().getUsername())) {  // 글쓴이가 맞는지 체크
             throw new IllegalArgumentException("글쓴이가 아닙니다.");
         }
-        likeService.deleteAllByPostId(postId);
-        postRepository.deleteById(postId);
+
+        imageService.imageAllDeleteByPostId(postId); //이미지 삭제
+        likeService.deleteAllByPostId(postId);  // like삭제
+        postRepository.deleteById(postId);  //포스트삭제
     }
 
     @Transactional

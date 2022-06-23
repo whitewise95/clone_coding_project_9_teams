@@ -11,16 +11,15 @@ import org.springframework.web.servlet.config.annotation.*;
 public class WebConfig implements WebMvcConfigurer {
 
     private final JwtTokenInterceptor jwtTokenInterceptor;
-    
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000")
+                .allowedOrigins("http://localhost:3000", "http://mung.shop", "http://mung.shop.s3-website.ap-northeast-2.amazonaws.com")
                 .allowedMethods("GET", "POST", "PATCH", "DELETE", "OPTIONS")
-                .allowedHeaders("Content-Type", "Custom-Header", "Authorization")
+                .allowedHeaders("Content-Type", "Authorization")
                 .allowCredentials(true);
     }
-
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

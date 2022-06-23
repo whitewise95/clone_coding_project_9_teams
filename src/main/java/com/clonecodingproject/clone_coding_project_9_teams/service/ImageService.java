@@ -15,6 +15,11 @@ import java.util.*;
 @Service
 public class ImageService {
 
+    private final String baseUrl = "http://whitewise.shop/upload";
+    private final String ubuntuUrl = "/home/ubuntu/upload";
+
+    private final String slide = "/";
+
     private final ImageRepository imageRepository;
 
     public List<ImageUrl> imageSave(List<ImageRequestDto> imageRequestDtos) {
@@ -41,7 +46,7 @@ public class ImageService {
         }
     }
 
-    private void imageAllDeleteByPostId(Long postId) {
+    public void imageAllDeleteByPostId(Long postId) {
         imageRepository.deleteByPostId(postId);
     }
 
@@ -54,27 +59,20 @@ public class ImageService {
         String rtnVal = "";
         try {
             String storedFileName = makeFileName(attcFile);
-            String folder = makeDir();
 
-            File f = new File(folder);
+            File f = new File(ubuntuUrl);
 
             if (!f.exists()) {
                 f.mkdirs();
-            } //폴더가 존재하지 않으면 경로 생성
+            }
 
-//            attcFile.transferTo(new File(folder + "\\" + storedFileName));
-//            rtnVal += "images\\" + storedFileName;
-            attcFile.transferTo(new File(folder + "/" + storedFileName));
-            rtnVal +=  "http://whitewise.shop/upload/" + storedFileName;
+            attcFile.transferTo(new File(ubuntuUrl + slide + storedFileName));
+
+            rtnVal += baseUrl + slide + storedFileName;
         } catch (Exception e) {
-            rtnVal = "";
+            throw new IllegalArgumentException("업로드에 실패했습니다.");
         }
         return rtnVal;
-    }
-
-    public String makeDir() {
-//        return  new File("").getAbsolutePath() + "\\src\\main\\resources\\static\\images";
-        return "/home/ubuntu/upload";
     }
 
     public String makeFileName(MultipartFile attcFile) {
