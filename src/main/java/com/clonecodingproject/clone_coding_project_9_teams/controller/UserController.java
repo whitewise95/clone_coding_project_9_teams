@@ -37,9 +37,7 @@ public class UserController {
     }
 
     @GetMapping("/test")
-    public String test(HttpServletRequest httpRequest){
-        String email = userInfoInJwt.getEmail_InJWT(httpRequest.getHeader("Authorization"));
-        System.out.printf(email);
+    public String test(){
         return "ok";
     }
 }
