@@ -1,22 +1,23 @@
-#!/usr/bin/env bash
+REPOSITORY1=/home/ubuntu
+REPOSITORY=/home/ubuntu/spart
+PROJECT_NAME=clone_coding_project_9_teams-0.0.1-SNAPSHOT.jar
 
-REPOSITORY=/home/ec2-user/cicdproject
-cd $REPOSITORY
+echo 
+CURRENT_PID=$(pgrep -fl $PROJECT_NAME | grep java | awk '{print $1}')
 
-APP_NAME=cicdproject
-JAR_NAME=$(ls $REPOSITORY/build/libs/ | grep 'SNAPSHOT.jar' | tail -n 1)
-JAR_PATH=$REPOSITORY/build/libs/$JAR_NAME
-
-CURRENT_PID=$(pgrep -f $APP_NAME)
-
-if [ -z $CURRENT_PID ]
-then
-  echo "> 종료할것 없음."
+if [ -z $CURRENT_PID ]; then
+    echo 
 else
-  echo "> kill -9 $CURRENT_PID"
-  kill -15 $CURRENT_PID
-  sleep 5
+    echo "> kill -15 $CURRENT_PID"
+    kill -15 $CURRENT_PID
+    sleep 5
 fi
 
-echo "> $JAR_PATH 배포"
-nohup java -jar $JAR_PATH > /dev/null 2> /dev/null < /dev/null &
+echo 
+JAR_NAME=$(ls -tr $REPOSITORY/*.jar | tail -n 1)
+
+echo 
+chmod +x $JAR_NAME
+
+echo 
+nohup java -jar $JAR_NAME > $REPOSITORY1/nohup.out 2>&1 &
