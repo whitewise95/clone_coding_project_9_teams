@@ -6,7 +6,6 @@ on:
 
 env:
   PROJECT_NAME: clone_coding_project_9_teams
-  BUCKET_NAME: kbsat-cicd-bucket
   CODE_DEPLOY_APP_NAME: cicdapp
   DEPLOYMENT_GROUP_NAME: cicdapp_deploy
 
